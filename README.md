@@ -1,0 +1,1 @@
+This is an spotify like music manager app in ASP.NET Core using MVC architecture
