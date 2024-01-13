@@ -1,0 +1,6 @@
+.vscode/
+.config/
+**/bin/
+**/obj/
+**/Publish/
+database.db
