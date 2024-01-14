@@ -38,10 +38,10 @@ public class SpotifyContext : DbContext
         );
 
         modelBuilder.Entity<User>().HasData(
-            new User() { Id = 1, Email = "hoseinshaemi@gmail.com", IsAdmin = true, Username = "hshaemi", Password = "test123" },
-            new User() { Id = 2, Email = "amirhosseinfathi@gmail.com", IsAdmin = false, Username = "afathi", Password = "123test" },
-            new User() { Id = 3, Email = "alinikaein@gmail.com", IsAdmin = false, Username = "anikaein", Password = "pass123" },
-            new User() { Id = 4, Email = "mammadmmp@gmail.com", IsAdmin = false, Username = "mamadmmp", Password = "123pass" }
+            new User() { Id = 1, Email = "hoseinshaemi@gmail.com", IsAdmin = true, Username = "hshaemi", Password = BCrypt.Net.BCrypt.HashPassword("test123") },
+            new User() { Id = 2, Email = "amirhosseinfathi@gmail.com", IsAdmin = false, Username = "afathi", Password = BCrypt.Net.BCrypt.HashPassword("123test") },
+            new User() { Id = 3, Email = "alinikaein@gmail.com", IsAdmin = false, Username = "anikaein", Password = BCrypt.Net.BCrypt.HashPassword("pass123") },
+            new User() { Id = 4, Email = "mammadmmp@gmail.com", IsAdmin = false, Username = "mamadmmp", Password = BCrypt.Net.BCrypt.HashPassword("123pass") }
         );
 
         modelBuilder.Entity<UserMusic>().HasData(

@@ -8,4 +8,5 @@ public interface IUserRepository : IGenericRepository<User>
     Task<bool> IsExistedUserByEmail(string email);
     Task<bool> IsExistedUserByUsername(string username);
     Task<User> GetUserForLogin(string email, string password);
+    Task<bool> ActiveUser(string token);
 }

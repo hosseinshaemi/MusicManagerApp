@@ -11,7 +11,7 @@ using Spotify.Data;
 namespace Spotify.Data.Migrations
 {
     [DbContext(typeof(SpotifyContext))]
-    [Migration("20240113181812_InitDatabase")]
+    [Migration("20240114182228_InitDatabase")]
     partial class InitDatabase
     {
         /// <inheritdoc />
@@ -151,13 +151,22 @@ namespace Spotify.Data.Migrations
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Password")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("VerificationToken")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Users");
 
@@ -167,7 +176,8 @@ namespace Spotify.Data.Migrations
                             Id = 1,
                             Email = "hoseinshaemi@gmail.com",
                             IsAdmin = true,
-                            Password = "test123",
+                            IsVerified = false,
+                            Password = "$2b$10$BcthHuedR4asOqhZdO7qQe09T3rqSt7dEeMFk.SKNFnmQpwuxsVM6",
                             Username = "hshaemi"
                         },
                         new
@@ -175,7 +185,8 @@ namespace Spotify.Data.Migrations
                             Id = 2,
                             Email = "amirhosseinfathi@gmail.com",
                             IsAdmin = false,
-                            Password = "123test",
+                            IsVerified = false,
+                            Password = "$2b$10$5xGj/mjx/AuvV1t2awtX8uOg22Q.TMAVUHL5v0fJ9/P0JPy97voAu",
                             Username = "afathi"
                         },
                         new
@@ -183,7 +194,8 @@ namespace Spotify.Data.Migrations
                             Id = 3,
                             Email = "alinikaein@gmail.com",
                             IsAdmin = false,
-                            Password = "pass123",
+                            IsVerified = false,
+                            Password = "$2b$10$hGFZmyoTVSccQDjUYpLUNutY.ZbFG6E7PfN/Sb9y6BtcMc.OUho9S",
                             Username = "anikaein"
                         },
                         new
@@ -191,7 +203,8 @@ namespace Spotify.Data.Migrations
                             Id = 4,
                             Email = "mammadmmp@gmail.com",
                             IsAdmin = false,
-                            Password = "123pass",
+                            IsVerified = false,
+                            Password = "$2b$10$aVxiWLvn2d0nG/1Q4/goL.dZj.d/XHvlGyX.AVMQL77CJsHCUlNjW",
                             Username = "mamadmmp"
                         });
                 });

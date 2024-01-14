@@ -5,6 +5,6 @@ public class HomeController : Controller
 {
     public IActionResult Index()
     {
-        return Ok("This is home controller");
+        return View();
     }
 }

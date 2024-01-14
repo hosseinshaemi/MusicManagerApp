@@ -34,7 +34,9 @@ namespace Spotify.Data.Migrations
                     Email = table.Column<string>(type: "TEXT", nullable: true),
                     Username = table.Column<string>(type: "TEXT", nullable: true),
                     Password = table.Column<string>(type: "TEXT", nullable: true),
-                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false)
+                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsVerified = table.Column<bool>(type: "INTEGER", nullable: false),
+                    VerificationToken = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -100,13 +102,13 @@ namespace Spotify.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "IsAdmin", "Password", "Username" },
+                columns: new[] { "Id", "Email", "IsAdmin", "IsVerified", "Password", "Username", "VerificationToken" },
                 values: new object[,]
                 {
-                    { 1, "hoseinshaemi@gmail.com", true, "test123", "hshaemi" },
-                    { 2, "amirhosseinfathi@gmail.com", false, "123test", "afathi" },
-                    { 3, "alinikaein@gmail.com", false, "pass123", "anikaein" },
-                    { 4, "mammadmmp@gmail.com", false, "123pass", "mamadmmp" }
+                    { 1, "hoseinshaemi@gmail.com", true, false, "$2b$10$BcthHuedR4asOqhZdO7qQe09T3rqSt7dEeMFk.SKNFnmQpwuxsVM6", "hshaemi", null },
+                    { 2, "amirhosseinfathi@gmail.com", false, false, "$2b$10$5xGj/mjx/AuvV1t2awtX8uOg22Q.TMAVUHL5v0fJ9/P0JPy97voAu", "afathi", null },
+                    { 3, "alinikaein@gmail.com", false, false, "$2b$10$hGFZmyoTVSccQDjUYpLUNutY.ZbFG6E7PfN/Sb9y6BtcMc.OUho9S", "anikaein", null },
+                    { 4, "mammadmmp@gmail.com", false, false, "$2b$10$aVxiWLvn2d0nG/1Q4/goL.dZj.d/XHvlGyX.AVMQL77CJsHCUlNjW", "mamadmmp", null }
                 });
 
             migrationBuilder.InsertData(
@@ -147,6 +149,12 @@ namespace Spotify.Data.Migrations
                 name: "IX_UserMusics_MusicId",
                 table: "UserMusics",
                 column: "MusicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
         }
 
         /// <inheritdoc />

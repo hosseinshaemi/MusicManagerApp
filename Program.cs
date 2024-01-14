@@ -4,6 +4,7 @@ using Spotify.Utils.Contracts;
 using Spotify.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Spotify.Data.Repositories.Contracts;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,16 @@ builder.Services.AddDbContext<SpotifyContext>(option =>
 });
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
+builder.Services.AddAntiforgery(opt => opt.Cookie.Name = "forgery");
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+{
+    option.LoginPath = "/Account/Login";
+    option.LogoutPath = "/Account/Logout";
+    option.ExpireTimeSpan = TimeSpan.FromDays(7);
+    option.Cookie.Name = "authentication";
+});
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

@@ -1,21 +1,31 @@
+using Spotify.Utils;
 using Spotify.Models;
 using Spotify.Models.DTOs;
+using Spotify.Utils.Models;
+using Spotify.Utils.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Spotify.Data.Repositories.Contracts;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 namespace Spotify.Controllers;
 
+[AutoValidateAntiforgeryToken]
 public class AccountController : Controller
 {
     private readonly IUserRepository _userRepository;
+    private readonly IEmailSender _emailSender;
+    private readonly IViewRenderService _viewRenderService;
 
-    public AccountController(IUserRepository userRepository)
+    public AccountController(IUserRepository userRepository, IEmailSender emailSender, IViewRenderService viewRenderService)
     {
         _userRepository = userRepository;
+        _emailSender = emailSender;
+        _viewRenderService = viewRenderService;
     }
 
     public IActionResult Index()
     {
-        return View("Login");
+        return RedirectToAction("Login");
     }
 
     [HttpGet]
@@ -62,15 +72,48 @@ public class AccountController : Controller
             return View(model: register);
         }
 
-        await _userRepository.Add(new User
+        User user = await _userRepository.Add(new User
         {
             Email = register.Email,
-            IsAdmin = false,
             Username = register.Username,
-            Password = BCrypt.Net.BCrypt.HashPassword(register.Password)
+            Password = BCrypt.Net.BCrypt.HashPassword(register.Password),
+            VerificationToken = Tools.TokenGenerator()
         });
 
+        SuccessfullRegisterDto srd = new() {
+            Username = user.Username,
+            VerificationUrl = Url.Action(
+                "Validate",
+                "Account",
+                new { token = user.VerificationToken },
+                Url.ActionContext.HttpContext.Request.Scheme,
+                Url.ActionContext.HttpContext.Request.Host.Value,
+                null
+            )
+        };
+
+        Email verificationEmail = new()
+        {
+            To = register.Email,
+            Body = await _viewRenderService.RenderToStringAsync("_ActiveEmail", srd),
+            Subject = "Activation"
+        };
+        _emailSender.SendEmail(verificationEmail);
+
         return View("SuccessRegister", register);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Validate(string token)
+    {
+        ViewBag.IsActive = await _userRepository.ActiveUser(token);
+        return View();
+    }
+
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Login");
     }
 
 }
