@@ -16,10 +16,8 @@ public class SpotifyContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<UserMusic>().HasKey(e => new { e.UserId, e.MusicId });
-        // modelBuilder.Entity<UserMusic>().HasOne(e => e.User).WithMany(e => e.UserMusics).HasForeignKey(e => e.UserId);
-        // modelBuilder.Entity<UserMusic>().HasOne(e => e.Music).WithMany(e => e.UserMusics).HasForeignKey(e => e.MusicId);
-
         modelBuilder.Entity<User>().HasMany(e => e.Musics).WithMany(e => e.Users).UsingEntity<UserMusic>();
+        modelBuilder.Entity<User>().HasIndex(e => e.Email).IsUnique();
 
         modelBuilder.Entity<Artist>().HasData(
             new Artist() { Id = 1, Name = "Homayoun Shajarian" },

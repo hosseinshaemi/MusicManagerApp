@@ -1,0 +1,12 @@
+@model Spotify.Models.DTOs.RegisterDto
+@{
+    ViewData["Title"] = $"{Model.Email} - Register Successfull";
+}
+
+<h1>Register has been successfully completed</h1>
+<div class="alert alert-success">
+    You can login to app using @Model.Email
+    <p>
+        <a asp-controller="Account" asp-action="Login">ورود به سایت</a>
+    </p>
+</div>

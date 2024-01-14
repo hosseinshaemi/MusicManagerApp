@@ -1,24 +1,24 @@
 using Spotify.Data;
+using Spotify.Utils;
+using Spotify.Utils.Contracts;
 using Spotify.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Spotify.Data.Repositories.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SpotifyContext>(option =>
 {
     option.UseSqlite(builder.Configuration.GetConnectionString("SpotifyApp"));
 });
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spotify.Data;
 
@@ -10,9 +11,11 @@ using Spotify.Data;
 namespace Spotify.Data.Migrations
 {
     [DbContext(typeof(SpotifyContext))]
-    partial class SpotifyContextModelSnapshot : ModelSnapshot
+    [Migration("20240114171437_MakeEmailUnique")]
+    partial class MakeEmailUnique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.15");

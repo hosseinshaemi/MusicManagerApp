@@ -13,6 +13,12 @@ public class UserRepository : GenericRepository<User>, IUserRepository
         _context = context;        
     }
 
+    public async Task<User> GetUserForLogin(string email, string password)
+    {
+        User user = await _context.Users.FirstOrDefaultAsync(e => e.Email == email);
+        return user;
+    }
+
     public async Task<List<User>> GetUsersWithDetails()
     {
         List<User> users = await _context.Users.Include(e => e.Musics).ToListAsync();
@@ -23,5 +29,17 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     {
         User user = await _context.Users.Include(e => e.Musics).FirstOrDefaultAsync(u => u.Id == id);
         return user;
+    }
+
+    public async Task<bool> IsExistedUserByEmail(string email)
+    {
+        User user = await _context.Users.FirstOrDefaultAsync(e => e.Email == email);
+        return user != null;
+    }
+
+    public async Task<bool> IsExistedUserByUsername(string username)
+    {
+        User user = await _context.Users.FirstOrDefaultAsync(e => e.Username == username);
+        return user != null;
     }
 }
