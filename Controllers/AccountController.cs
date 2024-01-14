@@ -7,13 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Spotify.Data.Repositories.Contracts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 namespace Spotify.Controllers;
 
 [AutoValidateAntiforgeryToken]
 public class AccountController : Controller
 {
-    private readonly IUserRepository _userRepository;
     private readonly IEmailSender _emailSender;
+    private readonly IUserRepository _userRepository;
     private readonly IViewRenderService _viewRenderService;
 
     public AccountController(IUserRepository userRepository, IEmailSender emailSender, IViewRenderService viewRenderService)
@@ -51,7 +52,22 @@ public class AccountController : Controller
             return View(model: login);
         }
 
-        return Content("Hello World");
+        if (!user.IsVerified)
+        {
+            ModelState.AddModelError("Email", "You should confirm your account.");
+            return View(model: login);
+        }
+
+        var claims = new List<Claim>{
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Name, user.Email),
+            new Claim("IsAdmin", user.IsAdmin.ToString())
+        };
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var principal = new ClaimsPrincipal(identity);
+        var properties = new AuthenticationProperties { IsPersistent = login.RememberMe };
+        await HttpContext.SignInAsync(principal, properties);
+        return RedirectToAction("Index", "Home");
     }
 
     [HttpPost]
@@ -80,7 +96,8 @@ public class AccountController : Controller
             VerificationToken = Tools.TokenGenerator()
         });
 
-        SuccessfullRegisterDto srd = new() {
+        SuccessfullRegisterDto srd = new()
+        {
             Username = user.Username,
             VerificationUrl = Url.Action(
                 "Validate",

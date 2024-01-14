@@ -29,7 +29,12 @@
                 <input type="password" asp-for="Password" class="form-control" placeholder="password ..." required />
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+            <div class="form-check mb-3 mb-md-0">
+                <input class="form-check-input" asp-for="RememberMe" checked />
+                <label class="form-check-label" asp-for="RememberMe">Remember me</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mb-4 mt-4">Sign in</button>
 
             <div class="text-center">
                 <p>Not a member? <a asp-controller="Account" asp-action="Register">Register</a></p>
