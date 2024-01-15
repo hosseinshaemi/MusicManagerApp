@@ -1,0 +1,38 @@
+@model Spotify.Models.DTOs.AddMusicDto
+
+@if (ViewBag.Success)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <strong>uploaded sucecssfully.</strong
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<form asp-action="AddMusic" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input type="text" asp-for="Title" class="form-control" aria-describedby="musicHelp" placeholder="Title ..."
+            required>
+        <small id="musicHelp" class="form-text text-muted">Please enter the title of music</small>
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Artist">Artist</label>
+        <input type="text" asp-for="Artist" class="form-control" aria-describedby="artistHelp"
+            placeholder="artist name ..." required>
+        <small id="artistHelp" class="form-text text-muted">Please enter artist's name</small>
+    </div>
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" asp-for="Music" required>
+        <label class="custom-file-label" asp-for="Music">Music</label>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4">Send</button>
+</form>
+
+@section Scripts {
+    <script>
+        $().alert('close');
+    </script>
+}

@@ -50,8 +50,7 @@ namespace Spotify.Data.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
-                    FileName = table.Column<string>(type: "TEXT", nullable: true),
-                    Length = table.Column<int>(type: "INTEGER", nullable: true),
+                    Link = table.Column<string>(type: "TEXT", nullable: true),
                     ArtistId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -105,25 +104,25 @@ namespace Spotify.Data.Migrations
                 columns: new[] { "Id", "Email", "IsAdmin", "IsVerified", "Password", "Username", "VerificationToken" },
                 values: new object[,]
                 {
-                    { 1, "hoseinshaemi@gmail.com", true, false, "$2b$10$BcthHuedR4asOqhZdO7qQe09T3rqSt7dEeMFk.SKNFnmQpwuxsVM6", "hshaemi", null },
-                    { 2, "amirhosseinfathi@gmail.com", false, false, "$2b$10$5xGj/mjx/AuvV1t2awtX8uOg22Q.TMAVUHL5v0fJ9/P0JPy97voAu", "afathi", null },
-                    { 3, "alinikaein@gmail.com", false, false, "$2b$10$hGFZmyoTVSccQDjUYpLUNutY.ZbFG6E7PfN/Sb9y6BtcMc.OUho9S", "anikaein", null },
-                    { 4, "mammadmmp@gmail.com", false, false, "$2b$10$aVxiWLvn2d0nG/1Q4/goL.dZj.d/XHvlGyX.AVMQL77CJsHCUlNjW", "mamadmmp", null }
+                    { 1, "hoseinshaemi@gmail.com", true, false, "$2b$10$VCdYyQLs.eEiOX3dwIC9hOrSJdhJFUuWzpjCkLpHGy0YG5mfBf37S", "hshaemi", null },
+                    { 2, "amirhosseinfathi@gmail.com", false, false, "$2b$10$x2VMvst1.2JqapA50Dzam.KuGqiQMwwF92tRsqnPgyfv60YgEDmdG", "afathi", null },
+                    { 3, "alinikaein@gmail.com", false, false, "$2b$10$k5zd26k/wenK2bSYbwhMYO.2PcLn9Z/lhKFbim4aTKpPDFvE3KpcC", "anikaein", null },
+                    { 4, "mammadmmp@gmail.com", false, false, "$2b$10$0G5H1OJH.ywohdka4HFNnOUjtrj.x1juMYDNPVjcvQqT3OirNl3eG", "mamadmmp", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Musics",
-                columns: new[] { "Id", "ArtistId", "FileName", "Length", "Title" },
+                columns: new[] { "Id", "ArtistId", "Link", "Title" },
                 values: new object[,]
                 {
-                    { 1, 1, "abr-biseda-mibarad.mp4", null, "Abr Biseda Mibarad" },
-                    { 2, 1, "tasnif-ghollab.mp4", null, "Tasnif Ghollab" },
-                    { 3, 2, "rahe-meykhane.mp4", null, "Rahe Meykhane" },
-                    { 4, 2, "saghi.mp4", null, "Saghi" },
-                    { 5, 3, "hala-ke-miravi.mp4", null, "Hala Ke Miravi" },
-                    { 6, 3, "dastam-ra-begir.mp4", null, "Dastam Ra Begir" },
-                    { 7, 4, "khatoon.mp4", null, "Khatoon" },
-                    { 8, 4, "gol-va-khak.mp4", null, "Gol Va Khak" }
+                    { 1, 1, "abr-biseda-mibarad.mp4", "Abr Biseda Mibarad" },
+                    { 2, 1, "tasnif-ghollab.mp4", "Tasnif Ghollab" },
+                    { 3, 2, "rahe-meykhane.mp4", "Rahe Meykhane" },
+                    { 4, 2, "saghi.mp4", "Saghi" },
+                    { 5, 3, "hala-ke-miravi.mp4", "Hala Ke Miravi" },
+                    { 6, 3, "dastam-ra-begir.mp4", "Dastam Ra Begir" },
+                    { 7, 4, "khatoon.mp4", "Khatoon" },
+                    { 8, 4, "gol-va-khak.mp4", "Gol Va Khak" }
                 });
 
             migrationBuilder.InsertData(

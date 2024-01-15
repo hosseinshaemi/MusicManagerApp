@@ -37,6 +37,12 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         return entity;
     }
 
+    public async Task<IReadOnlyList<T>> GetAll()
+    {
+        List<T> list = await _context.Set<T>().ToListAsync();
+        return list;
+    }
+
     public async Task Update(T entity)
     {
         _context.Entry(entity).State = EntityState.Modified;

@@ -5,4 +5,6 @@ public interface IArtistRepository : IGenericRepository<Artist>
 {
     Task<List<Artist>> GetArtistsWithDetail();
     Task<Artist> GetArtistWithDetail(int id);
+    Task<bool> IsExistedArtistByName(string name);
+    Task<Artist> GetArtistByName(string name);
 }

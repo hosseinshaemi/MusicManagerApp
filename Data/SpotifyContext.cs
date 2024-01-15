@@ -27,14 +27,14 @@ public class SpotifyContext : DbContext
         );
 
         modelBuilder.Entity<Music>().HasData(
-            new Music() { Id = 1, Title = "Abr Biseda Mibarad", FileName = "abr-biseda-mibarad.mp4", ArtistId = 1 },
-            new Music() { Id = 2, Title = "Tasnif Ghollab", FileName = "tasnif-ghollab.mp4", ArtistId = 1 },
-            new Music() { Id = 3, Title = "Rahe Meykhane", FileName = "rahe-meykhane.mp4", ArtistId = 2 },
-            new Music() { Id = 4, Title = "Saghi", FileName = "saghi.mp4", ArtistId = 2 },
-            new Music() { Id = 5, Title = "Hala Ke Miravi", FileName = "hala-ke-miravi.mp4", ArtistId = 3 },
-            new Music() { Id = 6, Title = "Dastam Ra Begir", FileName = "dastam-ra-begir.mp4", ArtistId = 3 },
-            new Music() { Id = 7, Title = "Khatoon", FileName = "khatoon.mp4", ArtistId = 4 },
-            new Music() { Id = 8, Title = "Gol Va Khak", FileName = "gol-va-khak.mp4", ArtistId = 4 }
+            new Music() { Id = 1, Title = "Abr Biseda Mibarad", Link = "abr-biseda-mibarad.mp4", ArtistId = 1 },
+            new Music() { Id = 2, Title = "Tasnif Ghollab", Link = "tasnif-ghollab.mp4", ArtistId = 1 },
+            new Music() { Id = 3, Title = "Rahe Meykhane", Link = "rahe-meykhane.mp4", ArtistId = 2 },
+            new Music() { Id = 4, Title = "Saghi", Link = "saghi.mp4", ArtistId = 2 },
+            new Music() { Id = 5, Title = "Hala Ke Miravi", Link = "hala-ke-miravi.mp4", ArtistId = 3 },
+            new Music() { Id = 6, Title = "Dastam Ra Begir", Link = "dastam-ra-begir.mp4", ArtistId = 3 },
+            new Music() { Id = 7, Title = "Khatoon", Link = "khatoon.mp4", ArtistId = 4 },
+            new Music() { Id = 8, Title = "Gol Va Khak", Link = "gol-va-khak.mp4", ArtistId = 4 }
         );
 
         modelBuilder.Entity<User>().HasData(

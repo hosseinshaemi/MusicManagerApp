@@ -12,6 +12,12 @@ public class ArtistRepository : GenericRepository<Artist>, IArtistRepository
         _context = context;
     }
 
+    public async Task<Artist> GetArtistByName(string name)
+    {
+        Artist artist = await _context.Artists.FirstOrDefaultAsync(a => a.Name == name);
+        return artist;
+    }
+
     public async Task<List<Artist>> GetArtistsWithDetail()
     {
         List<Artist> artists = await _context.Artists.Include(e => e.Musics).ToListAsync();
@@ -22,5 +28,11 @@ public class ArtistRepository : GenericRepository<Artist>, IArtistRepository
     {
         Artist artist = await _context.Artists.Include(e => e.Musics).FirstOrDefaultAsync(a => a.Id == id);
         return artist;
+    }
+
+    public async Task<bool> IsExistedArtistByName(string name)
+    {
+        Artist artist = await _context.Artists.FirstOrDefaultAsync(a => a.Name == name);
+        return artist != null;
     }
 }
