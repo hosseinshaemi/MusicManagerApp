@@ -8,6 +8,7 @@ using Spotify.Data.Repositories.Contracts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using System.Net;
 namespace Spotify.Controllers;
 
 [AutoValidateAntiforgeryToken]
@@ -32,12 +33,16 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Login()
     {
+        if (User.Identity!.IsAuthenticated)
+            return RedirectToAction("Index", "Home");
         return View();
     }
 
     [HttpGet]
     public IActionResult Register()
     {
+        if (User.Identity!.IsAuthenticated)
+            return RedirectToAction("Index", "Home");
         return View();
     }
 
@@ -61,8 +66,10 @@ public class AccountController : Controller
         var claims = new List<Claim>{
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.Email),
-            new Claim("IsAdmin", user.IsAdmin.ToString())
         };
+
+        if (user.IsAdmin) claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var principal = new ClaimsPrincipal(identity);
         var properties = new AuthenticationProperties { IsPersistent = login.RememberMe };
