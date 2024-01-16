@@ -1,17 +1,9 @@
-using Spotify.Utils;
 using Spotify.Models;
 using Spotify.Models.DTOs;
-using Spotify.Utils.Models;
-using Spotify.Utils.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Spotify.Data.Repositories.Contracts;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
-using System.Net;
 namespace Spotify.Controllers;
-
-
 
 public class ProfileController : Controller
 {
@@ -27,7 +19,7 @@ public class ProfileController : Controller
     public async Task<IActionResult> UserProfile(ProfileDto model)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        User user = await _userRepository.GetUserWithDetails(int.Parse(userId));
+        User user = await _userRepository.GetUserWithDetails(int.Parse(userId!));
         if (user == null)
         {
             return NotFound();
