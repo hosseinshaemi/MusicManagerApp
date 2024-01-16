@@ -1,7 +1,7 @@
 using Spotify.Data;
-using Spotify.Utils;
+using Spotify.Services;
 using Spotify.Policies;
-using Spotify.Utils.Contracts;
+using Spotify.Services.Contracts;
 using Spotify.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Spotify.Data.Repositories.Contracts;

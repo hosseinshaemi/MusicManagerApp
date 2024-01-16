@@ -1,7 +1,7 @@
 using Spotify.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Spotify.Utils.Contracts;
+using Spotify.Services.Contracts;
 using Spotify.Data.Repositories.Contracts;
 using Spotify.Models;
 namespace Spotify.Areas.Admin.Controllers;

@@ -1,5 +1,5 @@
 #nullable disable
-namespace Spotify.Utils.Models;
+namespace Spotify.Services.Models;
 
 public class Email
 {

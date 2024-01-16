@@ -1,8 +1,8 @@
 #nullable disable
 using Spotify.Models;
+using Spotify.Utils;
 using Microsoft.EntityFrameworkCore;
 using Spotify.Data.Repositories.Contracts;
-using Spotify.Utils;
 namespace Spotify.Data.Repositories;
 
 public class UserRepository : GenericRepository<User>, IUserRepository

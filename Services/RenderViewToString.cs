@@ -1,11 +1,11 @@
-using Spotify.Utils.Contracts;
+using Spotify.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-namespace Spotify.Utils;
+namespace Spotify.Services;
 
 public class RenderViewToString : IViewRenderService
 {

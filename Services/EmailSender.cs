@@ -1,9 +1,9 @@
 #nullable disable
 using System.Net;
 using System.Net.Mail;
-using Spotify.Utils.Contracts;
-using Spotify.Utils.Models;
-namespace Spotify.Utils;
+using Spotify.Services.Contracts;
+using Spotify.Services.Models;
+namespace Spotify.Services;
 
 public class EmailSender : IEmailSender
 {

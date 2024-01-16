@@ -1,4 +1,4 @@
-namespace Spotify.Utils.Contracts;
+namespace Spotify.Services.Contracts;
 
 public interface IAws3Services
 {

@@ -1,8 +1,8 @@
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
-using Spotify.Utils.Contracts;
-namespace Spotify.Utils;
+using Spotify.Services.Contracts;
+namespace Spotify.Services;
 
 public class Aws3Services : IAws3Services
 {

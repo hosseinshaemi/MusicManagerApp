@@ -1,14 +1,13 @@
 using Spotify.Utils;
 using Spotify.Models;
 using Spotify.Models.DTOs;
-using Spotify.Utils.Models;
-using Spotify.Utils.Contracts;
+using System.Security.Claims;
+using Spotify.Services.Models;
 using Microsoft.AspNetCore.Mvc;
+using Spotify.Services.Contracts;
 using Spotify.Data.Repositories.Contracts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
-using System.Net;
 namespace Spotify.Controllers;
 
 [AutoValidateAntiforgeryToken]
