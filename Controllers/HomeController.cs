@@ -15,7 +15,7 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        IReadOnlyList<Music> musics = await _musicRepository.GetAllMusicsWithArtist();
+        List<Music> musics = await _musicRepository.GetMusicsWithDetail();
         ShowMusicDto smd = new() { Musics = musics };
         return View(smd);
     }

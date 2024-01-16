@@ -10,7 +10,10 @@
             <th scope="col">Title</th>
             <th scope="col">Artist</th>
             <th scope="col">Music</th>
-            <th scope="col"></th>
+            @if (User.Identity!.IsAuthenticated)
+            {
+                <th scope="col"></th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -26,6 +29,17 @@
                         Your browser does not support the audio element.
                     </audio>
                 </td>
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    @if (item.Users.Any(e => e.Email == User.Identity.Name))
+                    {
+                        <td><a asp-area="" asp-controller="Profile" asp-action="Unlike" asp-route-id="@item.Id">Unlike</a></td>
+                    }
+                    else
+                    {
+                        <td><a asp-area="" asp-controller="Profile" asp-action="Like" asp-route-id="@item.Id">Like</a></td>
+                    }
+                }
             </tr>
         }
     </tbody>
