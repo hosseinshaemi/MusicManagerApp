@@ -19,6 +19,7 @@ builder.Services.AddDbContext<SpotifyContext>(option =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
 builder.Services.AddScoped<IMusicRepository, MusicRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
 builder.Services.AddSingleton<IAuthorizationHandler, AdminRequirementHandler>();

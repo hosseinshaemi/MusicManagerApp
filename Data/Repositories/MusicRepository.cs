@@ -13,15 +13,9 @@ public class MusicRepository : GenericRepository<Music>, IMusicRepository
         _context = context;        
     }
 
-    public async Task<IReadOnlyList<Music>> GetAllMusicsWithArtist()
-    {
-        IReadOnlyList<Music> musics = await _context.Musics.Include(m => m.Artist).ToListAsync();
-        return musics;
-    }
-
     public async Task<List<Music>> GetMusicsWithDetail()
     {
-        List<Music> musics = await _context.Musics.Include(e => e.Users).ToListAsync();
+        List<Music> musics = await _context.Musics.Include(e => e.Users).Include(e => e.Artist).ToListAsync();
         return musics;
     }
 

@@ -5,5 +5,4 @@ public interface IMusicRepository : IGenericRepository<Music>
 {
     Task<List<Music>> GetMusicsWithDetail();
     Task<Music> GetMusicWithDetail(int id);
-    Task<IReadOnlyList<Music>> GetAllMusicsWithArtist();
 }
