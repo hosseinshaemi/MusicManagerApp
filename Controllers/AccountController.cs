@@ -105,14 +105,7 @@ public class AccountController : Controller
         SuccessfullRegisterDto srd = new()
         {
             Username = user.Username,
-            VerificationUrl = Url.Action(
-                "Validate",
-                "Account",
-                new { token = user.VerificationToken },
-                Url.ActionContext.HttpContext.Request.Scheme,
-                Url.ActionContext.HttpContext.Request.Host.Value,
-                null
-            )
+            VerificationUrl = Url.UrlGenerator("Validate", "Account", new { token = user.VerificationToken })
         };
 
         Email verificationEmail = new()
@@ -136,6 +129,70 @@ public class AccountController : Controller
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Login");
+    }
+
+    [HttpGet]
+    public IActionResult ForgotPassword()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ForgotPassword(ForgotPasswordDto forgotPassword)
+    {
+        if (!ModelState.IsValid)
+            return View(forgotPassword);
+        
+        string email = Tools.FixEmail(forgotPassword.Email!);
+        User user = await _userRepository.GetUserByEmail(email);
+
+        if (user == null)
+        {
+            ModelState.AddModelError("Email", "This user does not exist.");
+            return View(forgotPassword);
+        }
+
+        ForgotPasswordEmailDto fpd = new()
+        {
+            Username = user.Username,
+            ResetLink = Url.UrlGenerator("ResetPassword", "Account", new { token = user.VerificationToken })
+        };
+
+        Email resetEmail = new()
+        {
+            To = user.Email,
+            Subject = "Reset Password",
+            Body = await _viewRenderService.RenderToStringAsync("_ForgotPassword", fpd)
+        };
+        _emailSender.SendEmail(resetEmail);
+
+        ViewBag.IsSuccess = true;
+        return View();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> ResetPassword(string token)
+    {
+        User user = await _userRepository.GetUserByActiveCode(token);
+        if (user == null) return NotFound();
+        return View(new ResetPasswordDto { Token = token });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPassword)
+    {
+        if (!ModelState.IsValid) return View(resetPassword);
+        User user = await _userRepository.GetUserByActiveCode(resetPassword.Token);
+
+        if (user == null) return NotFound();
+
+        string hashNewPassword = BCrypt.Net.BCrypt.HashPassword(resetPassword.Password);
+        user.Password = hashNewPassword;
+        user.VerificationToken = Tools.TokenGenerator();
+        await _userRepository.Update(user);
+
         return RedirectToAction("Login");
     }
 

@@ -9,4 +9,6 @@ public interface IUserRepository : IGenericRepository<User>
     Task<bool> IsExistedUserByUsername(string username);
     Task<User> GetUserForLogin(string email, string password);
     Task<bool> ActiveUser(string token);
+    Task<User> GetUserByEmail(string email);
+    Task<User> GetUserByActiveCode(string activeCode);
 }

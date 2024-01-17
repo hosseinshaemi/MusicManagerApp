@@ -24,6 +24,18 @@ public class UserRepository : GenericRepository<User>, IUserRepository
         return true;
     }
 
+    public async Task<User> GetUserByActiveCode(string activeCode)
+    {
+        User user = await _context.Users.FirstOrDefaultAsync(u => u.VerificationToken == activeCode);
+        return user;
+    }
+
+    public async Task<User> GetUserByEmail(string email)
+    {
+        User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return user;
+    }
+
     public async Task<User> GetUserForLogin(string email, string password)
     {
         User user = await _context.Users.FirstOrDefaultAsync(e => e.Email == email);

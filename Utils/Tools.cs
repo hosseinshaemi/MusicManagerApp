@@ -6,4 +6,9 @@ public static class Tools
     {
         return Guid.NewGuid().ToString().Replace("-", "");
     }
+
+    public static string FixEmail(string email)
+    {
+        return email.Trim().ToLower();
+    }
 }
