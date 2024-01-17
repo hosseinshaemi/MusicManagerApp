@@ -1,0 +1,12 @@
+@model Spotify.Models.DTOs.ProfileDto
+@{
+    ViewData["Title"] = User.Identity!.Name;
+}
+
+<label asp-for="Username"></label>
+<input class="form-control" type="text" asp-for="Username" aria-label="Disabled input example" disabled readonly>
+<br>
+<label asp-for="Email"></label>
+<input class="form-control" type="text" asp-for="Email" aria-label="Disabled input example" disabled readonly>
+<br>
+<a asp-controller="Profile" asp-action="ChangePassword">Change Password</a>

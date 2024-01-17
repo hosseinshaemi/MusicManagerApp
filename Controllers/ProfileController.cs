@@ -20,6 +20,15 @@ public class ProfileController : Controller
     }
 
     [HttpGet]
+    public async Task<IActionResult> Index()
+    {
+        User user = await _userRepository.GetUserByEmail(User.Identity!.Name!);
+        if (user == null) return NotFound();
+        ProfileDto profileDto = new() { Email = user.Email, Username = user.Username };
+        return View(profileDto);
+    }
+
+    [HttpGet]
     public async Task<IActionResult> UserProfile(ProfileDto model)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -30,7 +39,7 @@ public class ProfileController : Controller
         }
         var profileDTO = new ProfileDto
         {
-            UserName = user.Username,
+            Username = user.Username,
             Email = user.Email,
         };
 
@@ -43,7 +52,7 @@ public class ProfileController : Controller
     {
         if (ModelState.IsValid)
         {
-            var user = await _userRepository.GetUserWithDetails(model.id);
+            var user = await _userRepository.GetUserByEmail(model.Email!);
 
             if (user == null)
             {
@@ -51,11 +60,11 @@ public class ProfileController : Controller
             }
 
             // Update the user's profile information
-            user.Username = model.UserName;
+            user.Username = model.Username;
             user.Email = model.Email;
             
             var profileDTO = new ProfileDto {
-                UserName = user.Username,
+                Username = user.Username,
                 Email = user.Email,
             };
 
@@ -82,6 +91,33 @@ public class ProfileController : Controller
         await _userService.UnlikeMusic(userId, id);
 
         return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    public IActionResult ChangePassword()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ChangePassword(ChangePasswordDto changePassword)
+    {
+        if (!ModelState.IsValid) return View(changePassword);
+
+        User user = await _userRepository.GetUserByEmail(User.Identity!.Name!);
+        if (user == null) return NotFound();
+
+        if (!BCrypt.Net.BCrypt.Verify(changePassword.LastPassword, user.Password))
+        {
+            ModelState.AddModelError("LastPassword", "The last password is not correct.");
+            return View(changePassword);
+        }
+
+        user.Password = BCrypt.Net.BCrypt.HashPassword(changePassword.NewPassword);
+        await _userRepository.Update(user);
+
+        ViewBag.IsSuccess = true;
+        return View();
     }
 
 }
