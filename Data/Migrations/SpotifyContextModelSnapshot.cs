@@ -169,36 +169,40 @@ namespace Spotify.Data.Migrations
                             Id = 1,
                             Email = "hoseinshaemi@gmail.com",
                             IsAdmin = true,
-                            IsVerified = false,
-                            Password = "$2b$10$VCdYyQLs.eEiOX3dwIC9hOrSJdhJFUuWzpjCkLpHGy0YG5mfBf37S",
-                            Username = "hshaemi"
+                            IsVerified = true,
+                            Password = "$2b$10$RP0U1QHbMHM5MuQwMWIlcukscw3hI7uW9n2WsPSIDl6R6n.VcdEdC",
+                            Username = "hshaemi",
+                            VerificationToken = "b5c47c6fd898421da866084b06877b67"
                         },
                         new
                         {
                             Id = 2,
                             Email = "amirhosseinfathi@gmail.com",
                             IsAdmin = false,
-                            IsVerified = false,
-                            Password = "$2b$10$x2VMvst1.2JqapA50Dzam.KuGqiQMwwF92tRsqnPgyfv60YgEDmdG",
-                            Username = "afathi"
+                            IsVerified = true,
+                            Password = "$2b$10$aizHepe82n7C2nn844.pjO366zgBrpHMB.FejTfAwB6wXz/K/k/LO",
+                            Username = "afathi",
+                            VerificationToken = "cc9245b3860c4337b2ca38469ce98d79"
                         },
                         new
                         {
                             Id = 3,
                             Email = "alinikaein@gmail.com",
                             IsAdmin = false,
-                            IsVerified = false,
-                            Password = "$2b$10$k5zd26k/wenK2bSYbwhMYO.2PcLn9Z/lhKFbim4aTKpPDFvE3KpcC",
-                            Username = "anikaein"
+                            IsVerified = true,
+                            Password = "$2b$10$dnlioaOYLoh9r5Z58Qm9NefC0IMru/HDpO6r8OFw.RKxuqdSIgM1K",
+                            Username = "anikaein",
+                            VerificationToken = "5de09702354844de9fd2fe22423ddcb9"
                         },
                         new
                         {
                             Id = 4,
                             Email = "mammadmmp@gmail.com",
                             IsAdmin = false,
-                            IsVerified = false,
-                            Password = "$2b$10$0G5H1OJH.ywohdka4HFNnOUjtrj.x1juMYDNPVjcvQqT3OirNl3eG",
-                            Username = "mamadmmp"
+                            IsVerified = true,
+                            Password = "$2b$10$qa.z5C92ABVmepPszzatiOzQ2cRrwPzzRU9fg20k5Q59u/uAV8.NS",
+                            Username = "mamadmmp",
+                            VerificationToken = "e9c0b0d1a3f7441f9d075378f4b3fad3"
                         });
                 });
 

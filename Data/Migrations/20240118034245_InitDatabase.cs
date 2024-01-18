@@ -104,10 +104,10 @@ namespace Spotify.Data.Migrations
                 columns: new[] { "Id", "Email", "IsAdmin", "IsVerified", "Password", "Username", "VerificationToken" },
                 values: new object[,]
                 {
-                    { 1, "hoseinshaemi@gmail.com", true, false, "$2b$10$VCdYyQLs.eEiOX3dwIC9hOrSJdhJFUuWzpjCkLpHGy0YG5mfBf37S", "hshaemi", null },
-                    { 2, "amirhosseinfathi@gmail.com", false, false, "$2b$10$x2VMvst1.2JqapA50Dzam.KuGqiQMwwF92tRsqnPgyfv60YgEDmdG", "afathi", null },
-                    { 3, "alinikaein@gmail.com", false, false, "$2b$10$k5zd26k/wenK2bSYbwhMYO.2PcLn9Z/lhKFbim4aTKpPDFvE3KpcC", "anikaein", null },
-                    { 4, "mammadmmp@gmail.com", false, false, "$2b$10$0G5H1OJH.ywohdka4HFNnOUjtrj.x1juMYDNPVjcvQqT3OirNl3eG", "mamadmmp", null }
+                    { 1, "hoseinshaemi@gmail.com", true, true, "$2b$10$RP0U1QHbMHM5MuQwMWIlcukscw3hI7uW9n2WsPSIDl6R6n.VcdEdC", "hshaemi", "b5c47c6fd898421da866084b06877b67" },
+                    { 2, "amirhosseinfathi@gmail.com", false, true, "$2b$10$aizHepe82n7C2nn844.pjO366zgBrpHMB.FejTfAwB6wXz/K/k/LO", "afathi", "cc9245b3860c4337b2ca38469ce98d79" },
+                    { 3, "alinikaein@gmail.com", false, true, "$2b$10$dnlioaOYLoh9r5Z58Qm9NefC0IMru/HDpO6r8OFw.RKxuqdSIgM1K", "anikaein", "5de09702354844de9fd2fe22423ddcb9" },
+                    { 4, "mammadmmp@gmail.com", false, true, "$2b$10$qa.z5C92ABVmepPszzatiOzQ2cRrwPzzRU9fg20k5Q59u/uAV8.NS", "mamadmmp", "e9c0b0d1a3f7441f9d075378f4b3fad3" }
                 });
 
             migrationBuilder.InsertData(
